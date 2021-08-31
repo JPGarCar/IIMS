@@ -1,0 +1,27 @@
+{% extends 'iims/base.html' %}
+
+{% block body %}
+
+<div class="d-flex justify-content-center p-3">
+    <div>
+        <p>Welcome to the Intramurals Information Management System (IIMS), made with love by JP Garcia.</p>
+
+        <div class="d-flex flex-row justify-content-evenly">
+            <div>
+                <a href="{% url 'leagues:home' %}" class="btn btn-primary">Leagues</a>
+            </div>
+
+            <div class="text-center">
+                <p>Coming Soon...</p>
+                <a href="#" class="btn btn-primary">Events</a>
+            </div>
+
+            <div>
+                <a href="{% url 'admin:index' %}" class="btn btn-secondary">Admin</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

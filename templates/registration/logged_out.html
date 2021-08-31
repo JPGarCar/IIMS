@@ -1,0 +1,10 @@
+{% extends 'iims/base.html' %}
+
+{% block body %}
+    <div class="d-flex justify-content-center p-3">
+        <div class="col text-center">
+            <p>Logged out!</p>
+            <a href="{% url 'login' %}" class="btn btn-outline-primary">Log Back In</a>
+        </div>
+    </div>
+{% endblock %}

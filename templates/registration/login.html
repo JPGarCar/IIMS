@@ -1,0 +1,16 @@
+{% extends 'iims/base.html' %}
+{% load bootstrap5 %}
+
+{% block body %}
+    <div class="d-flex justify-content-center p-3">
+        <div>
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons submit='login' %} {% endbuttons %}
+            </form>
+
+            <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+        </div>
+    </div>
+{% endblock %}

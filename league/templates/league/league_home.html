@@ -1,0 +1,112 @@
+{% extends 'iims/base.html' %}
+
+{% block body %}
+
+    <div class="container-fluid my-4">
+        <h3>Activities:</h3>
+        <div class="container-fluid">
+            {% for activity in activities %}
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                    <h6>{{ activity.name }}</h6>
+                    <div class="">
+                        <a href="{% url 'leagues:activity' activity.id %}" class="btn btn-outline-primary">Open</a>
+                    </div>
+                </div>
+            {% empty %}
+                <h5>There are no activities!</h5>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="d-flex flex-row flex-wrap justify-content-evenly p-3">
+        <!-- gender button -->
+        <a href="{% url 'leagues:empty_view' %}">
+            <div class="card d-flex mx-1 my-2" style="min-width: 8rem">
+                <div class="card-img-top text-center">
+                    <i class="bi bi-gender-ambiguous" style="font-size: 3rem"></i>
+                </div>
+                <div class="card-body text-center">
+                    <h4 class="card-title">Genders</h4>
+                </div>
+            </div>
+        </a>
+        <!-- tier button -->
+        <a href="{% url 'leagues:empty_view' %}">
+            <div class="card d-flex mx-1 my-2" style="min-width: 8rem">
+                <div class="card-img-top text-center">
+                    <i class="bi bi-list-ol" style="font-size: 3rem"></i>
+                </div>
+                <div class="card-body text-center">
+                    <h4 class="card-title">Tiers</h4>
+                </div>
+            </div>
+        </a>
+        <!-- terms button -->
+        <a href="{% url 'leagues:empty_view' %}">
+            <div class="card d-flex mx-1 my-2" style="min-width: 8rem">
+                <div class="card-img-top text-center">
+                    <i class="bi bi-clock" style="font-size: 3rem"></i>
+                </div>
+                <div class="card-body text-center">
+                    <h4 class="card-title">Terms</h4>
+                </div>
+            </div>
+        </a>
+        <!-- location button -->
+        <a href="{% url 'leagues:empty_view' %}">
+            <div class="card d-flex mx-1 my-2" style="min-width: 8rem">
+                <div class="card-img-top text-center">
+                    <i class="bi bi-pin-map" style="font-size: 3rem"></i>
+                </div>
+                <div class="card-body text-center">
+                    <h4 class="card-title">Locations</h4>
+                </div>
+            </div>
+        </a>
+        <!-- unit button -->
+        <a href="{% url 'leagues:empty_view' %}">
+            <div class="card d-flex mx-1 my-2" style="min-width: 8rem">
+                <div class="card-img-top text-center">
+                    <i class="bi bi-house-door-fill" style="font-size: 3rem"></i>
+                </div>
+                <div class="card-body text-center">
+                    <h4 class="card-title">Units</h4>
+                </div>
+            </div>
+        </a>
+        <!-- participant button -->
+        <a href="{% url 'leagues:empty_view' %}">
+            <div class="card d-flex mx-1 my-2" style="min-width: 8rem">
+                <div class="card-img-top text-center">
+                    <i class="bi bi-person" style="font-size: 3rem"></i>
+                </div>
+                <div class="card-body text-center">
+                    <h4 class="card-title">Participants</h4>
+                </div>
+            </div>
+        </a>
+        <!-- officials button -->
+        <a href="{% url 'leagues:empty_view' %}">
+            <div class="card d-flex mx-1 my-2" style="min-width: 8rem">
+                <div class="card-img-top text-center">
+                    <i class="bi bi-file-ruled" style="font-size: 3rem"></i>
+                </div>
+                <div class="card-body text-center">
+                    <h4 class="card-title">Officials</h4>
+                </div>
+            </div>
+        </a>
+        <!-- Info button -->
+        <a href="{% url 'leagues:empty_view' %}">
+            <div class="card d-flex mx-1 my-2" style="min-width: 8rem">
+                <div class="card-img-top text-center">
+                    <i class="bi bi-info-circle-fill" style="font-size: 3rem"></i>
+                </div>
+                <div class="card-body text-center">
+                    <h4 class="card-title">Info</h4>
+                </div>
+            </div>
+        </a>
+    </div>
+
+{% endblock %}

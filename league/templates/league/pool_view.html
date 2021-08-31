@@ -1,0 +1,48 @@
+{% extends 'iims/base.html' %}
+
+{% block body %}
+    <div class="container-fluid my-2 text-center">
+        <h3>{{ pool }}</h3>
+        <div class="d-flex flex-row justify-content-evenly">
+            <p>Gender: {{ pool.gender.name }}</p>
+            <p>Term: {{ pool.term.name }}</p>
+            <p>Tier: {{ pool.tier.name }}</p>
+        </div>
+    </div>
+
+    <div class="row mx-2">
+        <div class="col-7">
+            <h4>Weeks:</h4>
+            <div>
+                {% for week in weeks %}
+                    <div class="d-flex flex-row justify-content-between align-items-center mb-2">
+                        <h6>{{ week }}</h6>
+                        <a href="{% url 'leagues:week' week.id %}" class="btn btn-outline-primary">Open</a>
+                    </div>
+                {% empty %}
+                    <h5>There are no weeks on this pool!</h5>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col d-flex flex-column justify-content-evenly align-content-center">
+            <p>Location: {{ locations }}</p>
+            <p>Days of Play: {{ days_of_play }}</p>
+            <p>Game Duration: {{ pool.game_duration }}</p>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <h4>Teams:</h4>
+        <div>
+            {% for team in teams %}
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                    <h6>{{ team.name }}</h6>
+                    <a href="#" class="btn btn-outline-primary">Open</a>
+                </div>
+            {% empty %}
+                <h5>There are no teams on this pool!</h5>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
