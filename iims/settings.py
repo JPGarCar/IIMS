@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'team.apps.TeamConfig',
     'bootstrap5',
     'multiselectfield',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
