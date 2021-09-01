@@ -76,7 +76,7 @@ class Pool(models.Model):
         help_text='What days is this pool playing?'
     )
 
-    activity = models.ForeignKey(to=Activity, on_delete=models.CASCADE)
+    activity = models.ForeignKey(to=Activity, on_delete=models.CASCADE, related_name='pools')
 
     gender = models.ForeignKey(to=Gender, on_delete=models.CASCADE)
     tier = models.ForeignKey(to=Tier, on_delete=models.CASCADE)
@@ -96,15 +96,15 @@ class Week(models.Model):
         help_text='The last day of the week.'
     )
 
-    pool = models.ForeignKey(to=Pool, on_delete=models.CASCADE)
+    pool = models.ForeignKey(to=Pool, on_delete=models.CASCADE, related_name='weeks')
 
     def __str__(self):
-        return 'Week of {} to {}.'.format(self.start_date.day, self.end_date.day)
+        return 'Week of {} to {}.'.format(self.start_date, self.end_date.day)
 
 
 class Day(models.Model):
     """Represents a day of play within a week. The day can have any number of games scheduled."""
-    week = models.ForeignKey(to=Week, on_delete=models.CASCADE)
+    week = models.ForeignKey(to=Week, on_delete=models.CASCADE, related_name='days')
 
     day = models.DateField()
     start_time = models.TimeField(help_text='Time when the first game can start!')
@@ -112,7 +112,8 @@ class Day(models.Model):
     location = models.ForeignKey(
         to=Location,
         help_text='Location where this day\'s games are to be played.',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='days'
     )
 
     def __str__(self):

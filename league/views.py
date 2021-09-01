@@ -27,7 +27,7 @@ def activity_view(request, activity_id):
 
         return render(request, 'league/activity_view.html', context={
             'activity': activity,
-            'pools': activity.pool_set.all()
+            'pools': activity.pools.all()
         })
 
 
@@ -47,7 +47,7 @@ def pool_view(request, pool_id):
 
         return render(request, 'league/pool_view.html', context={
             'pool': pool,
-            'weeks': pool.week_set.all(),
+            'weeks': pool.weeks.all(),
             'teams': pool.team_set.all(),
             'locations': locations,
             'days_of_play': pool.get_days_of_play_display()
@@ -64,7 +64,7 @@ def week_view(request, week_id):
         except Week.DoesNotExist:
             return HttpResponseBadRequest('Week id given is invalid!')
 
-        days = week.day_set.all()
+        days = week.days.all()
 
         return render(request, 'league/week_view.html', context={
             'week': week,
