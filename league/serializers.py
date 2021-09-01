@@ -35,7 +35,10 @@ class ActivitySerializer(serializers.ModelSerializer):
 
 class DaySerializer(serializers.ModelSerializer):
     location = LocationSerializer()
-    week = serializers.HyperlinkedRelatedField()
+    week = serializers.HyperlinkedRelatedField(
+        view_name='week-detail',
+        read_only=True
+    )
 
     class Meta:
         model = Day
@@ -43,7 +46,10 @@ class DaySerializer(serializers.ModelSerializer):
 
 
 class WeekSerializer(serializers.ModelSerializer):
-    pool = serializers.HyperlinkedRelatedField()
+    pool = serializers.HyperlinkedRelatedField(
+        view_name='pool-detail',
+        read_only=True
+    )
     days = DaySerializer(many=True)
 
     class Meta:
