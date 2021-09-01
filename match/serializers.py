@@ -7,3 +7,4 @@ class MatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Match
         fields = ('id', 'day', 'time', 'home_team', 'away_team', )
+

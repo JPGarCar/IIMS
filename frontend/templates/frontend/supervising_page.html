@@ -1,0 +1,7 @@
+{% extends 'frontend/react_base.html' %}
+{% load static %}
+
+{% block scripts %}
+    {{ pool|json_script:'pool' }}
+    <script src="{% static 'frontend/supervisingPage.js' %}"></script>
+{% endblock %}

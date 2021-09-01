@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'officials.apps.OfficialsConfig',
     'participant.apps.ParticipantConfig',
     'team.apps.TeamConfig',
+    'frontend.apps.FrontendConfig',
     'bootstrap5',
     'multiselectfield',
     'rest_framework',
