@@ -44,10 +44,12 @@ INSTALLED_APPS = [
     'participant.apps.ParticipantConfig',
     'team.apps.TeamConfig',
     'frontend.apps.FrontendConfig',
+    'api.apps.ApiConfig',
     'bootstrap5',
     'multiselectfield',
     'rest_framework',
     'drf_spectacular',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -145,7 +147,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Rest framework
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"
 }
