@@ -6,31 +6,31 @@ from .models import Gender, Tier, Term, Location, Activity, Pool, Week, Day
 class GenderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gender
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class TierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tier
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class TermSerializer(serializers.ModelSerializer):
     class Meta:
         model = Term
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class DaySerializer(serializers.ModelSerializer):
@@ -42,7 +42,7 @@ class DaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Day
-        fields = ['day', 'start_time', 'end_time', 'location', 'week']
+        fields = ['id', 'day', 'start_time', 'end_time', 'location', 'week']
 
 
 class WeekSerializer(serializers.ModelSerializer):
@@ -54,16 +54,17 @@ class WeekSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Week
-        fields = ['start_date', 'end_date', 'pool', 'days']
+        fields = ['id', 'start_date', 'end_date', 'pool', 'days']
 
 
 class PoolSerializer(serializers.ModelSerializer):
     gender = GenderSerializer()
     tier = TierSerializer()
     term = TermSerializer()
+    activity = ActivitySerializer()
     locations_of_play = LocationSerializer(many=True)
 
     class Meta:
         model = Pool
-        fields = ('name', 'game_duration', 'days_of_play', 'activity', 'gender', 'tier',
+        fields = ('id', 'name', 'game_duration', 'days_of_play', 'activity', 'gender', 'tier',
                   'term', 'locations_of_play', '__str__')
