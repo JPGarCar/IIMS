@@ -1,11 +1,25 @@
-from rest_framework import generics, status
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
-from match.models import Match
-from match.serializers import MatchSerializer
+from match.models import Player, TeamGame, OfficialGame, Match
+from match.serializers import PlayerSerializer, TeamGameSerializer,\
+    OfficialGameSerializer, MatchSerializer
 
 
-class MatchView(generics.ListAPIView):
+class PlayerViewSet(ModelViewSet):
+    queryset = Player.objects.all()
+    serializer_class = PlayerSerializer
+
+
+class TeamGameViewSet(ModelViewSet):
+    queryset = TeamGame.objects.all()
+    serializer_class = TeamGameSerializer
+
+
+class OfficialGameViewSet(ModelViewSet):
+    queryset = OfficialGame.objects.all()
+    serializer_class = OfficialGameSerializer
+
+
+class MatchViewSet(ModelViewSet):
     queryset = Match.objects.all()
     serializer_class = MatchSerializer

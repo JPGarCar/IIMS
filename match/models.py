@@ -77,8 +77,16 @@ class OfficialGame(models.Model):
         max_length=255,
         choices=OFFICIAL_STATUS,
     )
-    match = models.ForeignKey(to=Match, on_delete=models.CASCADE)
-    official = models.ForeignKey(to=Official, on_delete=models.CASCADE)
+    match = models.ForeignKey(
+        to=Match,
+        on_delete=models.CASCADE,
+        related_name='officials'
+    )
+    official = models.ForeignKey(
+        to=Official,
+        on_delete=models.CASCADE,
+        related_name='games'
+    )
 
     def __str__(self):
         return '{} officiating {}'.format(
@@ -89,8 +97,16 @@ class OfficialGame(models.Model):
 
 class Player(models.Model):
     """Represents a participant's involvement on a game."""
-    participant = models.ForeignKey(to=Participant, on_delete=models.CASCADE)
-    game = models.ForeignKey(to=TeamGame, on_delete=models.CASCADE)
+    participant = models.ForeignKey(
+        to=Participant,
+        on_delete=models.CASCADE,
+        related_name='player_set'
+    )
+    game = models.ForeignKey(
+        to=TeamGame,
+        on_delete=models.CASCADE,
+        related_name='players'
+    )
 
     number = models.PositiveIntegerField(
         help_text='The player\'s game jersey number.'
