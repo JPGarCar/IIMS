@@ -27,4 +27,5 @@ urlpatterns = [
     path('match/', include('match.urls')),
     path('react/', include('frontend.urls')),
     path('api/', include('api.urls')),
+    path('officials/', include('officials.urls')),
 ]
