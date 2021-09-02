@@ -28,4 +28,5 @@ urlpatterns = [
     path('react/', include('frontend.urls')),
     path('api/', include('api.urls')),
     path('officials/', include('officials.urls')),
+    path('participants/', include('participant.urls')),
 ]
