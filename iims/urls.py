@@ -16,8 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView
-from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +26,6 @@ urlpatterns = [
     path('react/', include('frontend.urls')),
     path('api/', include('api.urls')),
     path('officials/', include('officials.urls')),
-    path('participants/', include('participant.urls')),
+    path('participant/', include('participant.urls')),
+    path('team/', include('team.urls'))
 ]
