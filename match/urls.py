@@ -20,5 +20,5 @@ api_urlpatterns = [
 api_urlpatterns = api_urlpatterns + router.urls
 
 urlpatterns = [
-    path('api/', include(api_urlpatterns), name='api')
+    path('api/', include((api_urlpatterns, 'api'), namespace='api'))
 ]
