@@ -13,7 +13,7 @@ class PlayerSerializer(serializers.ModelSerializer):
 class TeamGameSerializer(serializers.ModelSerializer):
     class Meta:
         model = TeamGame
-        fields = ['id', 'team', 'score', 'status', 'players', 'get_match']
+        fields = ['id', 'team', 'score', 'status', 'players']
         depth = 1
 
 
@@ -27,5 +27,5 @@ class OfficialGameSerializer(serializers.ModelSerializer):
 class MatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Match
-        fields = ('id', 'day', 'time', 'home_team', 'away_team', 'officials')
+        fields = ('id', 'day', 'time', 'home_team', 'away_team', 'officials', '__str__')
         depth = 1

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from match.serializers import MatchSerializer
 from .models import Gender, Tier, Term, Location, Activity, Pool, Week, Day
 
 
@@ -34,27 +35,19 @@ class ActivitySerializer(serializers.ModelSerializer):
 
 
 class DaySerializer(serializers.ModelSerializer):
-    location = LocationSerializer()
-    week = serializers.HyperlinkedRelatedField(
-        view_name='week-detail',
-        read_only=True
-    )
+    matches = MatchSerializer(many=True)
 
     class Meta:
         model = Day
-        fields = ['id', 'day', 'start_time', 'end_time', 'location', 'week']
+        fields = ['id', 'day', 'start_time', 'end_time', 'location', 'week', 'matches', '__str__']
+        depth = 1
 
 
 class WeekSerializer(serializers.ModelSerializer):
-    pool = serializers.HyperlinkedRelatedField(
-        view_name='pool-detail',
-        read_only=True
-    )
-    days = DaySerializer(many=True)
-
     class Meta:
         model = Week
-        fields = ['id', 'start_date', 'end_date', 'pool', 'days']
+        fields = ['id', 'start_date', 'end_date', 'pool', 'days', '__str__']
+        depth = 1
 
 
 class PoolSerializer(serializers.ModelSerializer):
