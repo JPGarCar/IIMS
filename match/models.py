@@ -43,7 +43,7 @@ class TeamGame(models.Model):
 
 class Match(models.Model):
     """Represents a match to be played by two teams and officiated by officials."""
-    day = models.ForeignKey(to=Day, on_delete=models.CASCADE)
+    day = models.ForeignKey(to=Day, on_delete=models.CASCADE, related_name='matches')
     time = models.TimeField(
         help_text='Date and time when this match is happening.'
     )
@@ -59,8 +59,7 @@ class Match(models.Model):
     )
 
     def __str__(self):
-        return '{} between {} vs {}'.format(
-            self.day.__str__(),
+        return '{} vs {}'.format(
             self.home_team.team.__str__(),
             self.away_team.team.__str__(),
         )

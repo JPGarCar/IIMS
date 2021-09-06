@@ -82,7 +82,7 @@ def day_view(request, day_id):
         except Day.DoesNotExist:
             return HttpResponseBadRequest('Day id given is invalid!')
 
-        matches = day.match_set.all()
+        matches = day.matches.all()
 
         return render(request, 'league/day_view.html', context={
             'day': day,
