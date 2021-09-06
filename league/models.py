@@ -99,7 +99,7 @@ class Week(models.Model):
     pool = models.ForeignKey(to=Pool, on_delete=models.CASCADE, related_name='weeks')
 
     def __str__(self):
-        return 'Week of {} to {}.'.format(self.start_date, self.end_date.day)
+        return 'Week of {} to {}.'.format(self.start_date, self.end_date)
 
 
 class Day(models.Model):
@@ -117,6 +117,6 @@ class Day(models.Model):
     )
 
     def __str__(self):
-        return '{} day of play for {} at {}'.format(
-            self.week.pool.__str__(), self.day.__str__(), self.location.__str__()
+        return '{} at {}'.format(
+            self.day.__str__(), self.location.__str__()
         )
