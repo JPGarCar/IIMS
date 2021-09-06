@@ -7,5 +7,5 @@ app_name = 'react'
 
 urlpatterns = [
     path('', main),
-    path('supervising_page/<int:pool_id>', supervising_page)
+    path('supervising_page/<int:pool_id>/<int:week_id>/<int:day_id>', supervising_page)
 ]

@@ -3,5 +3,7 @@
 
 {% block scripts %}
     {{ pool|json_script:'pool' }}
+    {{ day|json_script:'day' }}
+    {{ week|json_script:'week' }}
     <script src="{% static 'frontend/supervisingPage.js' %}"></script>
 {% endblock %}
