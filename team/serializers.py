@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
+from participant.serializers import ParticipantSerializer
 from .models import Unit, Team
 
 
