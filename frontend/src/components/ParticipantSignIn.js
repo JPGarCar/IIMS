@@ -15,6 +15,23 @@ export default class ParticipantSignIn extends Component {
 
         this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
+        this.handleSignIn = this.handleSignIn.bind(this);
+    }
+
+    handleSignIn(e) {
+        const requestOpts = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                'participant_pk': this.state.participant.id
+            })
+        }
+
+        const teamGame = this.state.match.home_team.team.id === this.state.team.id ? this.state.match.home_team : this.state.match.away_team;
+
+        fetch(
+            'http://localhost:8000/match/api/team_games/' + teamGame.id + '/sign_in/', requestOpts
+        ).then((response) => response.json()).then((data) => console.log(data))
     }
 
     handleSearch(e) {
@@ -58,8 +75,8 @@ export default class ParticipantSignIn extends Component {
                           </Button>
                       </Grid>
                       <Grid item xs>
-                          <Button>
-                              Playing
+                          <Button onClick={this.handleSignIn}>
+                              Sign In
                           </Button>
                       </Grid>
                   </Grid>
