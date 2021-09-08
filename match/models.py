@@ -26,6 +26,7 @@ class TeamGame(models.Model):
     )
 
     def get_match(self):
+        """Returns the match of this team game, might be home or away, so we check both!"""
         try:
             return self.match_home_team
         except Match.DoesNotExist:
@@ -39,6 +40,20 @@ class TeamGame(models.Model):
             self.team.__str__(),
             self.get_match().__str__()
         )
+
+    def add_participant(self, participant_pk):
+        """Add a participant to this Team Game"""
+        if participant_pk is None:
+            return False
+        try:
+            participant = Participant.objects.get(pk=participant_pk)
+        except Participant.DoesNotExist:
+            return False
+
+        player = Player(participant=participant, game=self)
+        player.save()
+
+        return True
 
 
 class Match(models.Model):
@@ -108,7 +123,9 @@ class Player(models.Model):
     )
 
     number = models.PositiveIntegerField(
-        help_text='The player\'s game jersey number.'
+        help_text='The player\'s game jersey number.',
+        null=True,
+        blank=True,
     )
     score = models.PositiveIntegerField(
         help_text='The amount of points the player scored.',

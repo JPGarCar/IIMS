@@ -1,3 +1,5 @@
+from rest_framework import decorators, status
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from match.models import Player, TeamGame, OfficialGame, Match
@@ -13,6 +15,26 @@ class PlayerViewSet(ModelViewSet):
 class TeamGameViewSet(ModelViewSet):
     queryset = TeamGame.objects.all()
     serializer_class = TeamGameSerializer
+
+    @decorators.action(methods=['post'], detail=True)
+    def sign_in(self, request, pk):
+        data = request.data
+        team_game: TeamGame = self.get_object()
+
+        participant_pk = data.get('participant_pk', None)
+
+        if participant_pk is None:
+            return Response(data={'error': 'No participant id given!'}, status=status.HTTP_400_BAD_REQUEST)
+
+        is_complete = team_game.add_participant(participant_pk=participant_pk)
+
+        if is_complete:
+            return Response(data={'status': 'Participant was added to the team match!'})
+        else:
+            return Response(
+                data={'error': 'Participant was not added to the team match!'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
 
 class OfficialGameViewSet(ModelViewSet):
