@@ -26,6 +26,7 @@ class TeamGame(models.Model):
     )
 
     def get_match(self):
+        """Returns the match of this team game, might be home or away, so we check both!"""
         try:
             return self.match_home_team
         except Match.DoesNotExist:
@@ -40,10 +41,24 @@ class TeamGame(models.Model):
             self.get_match().__str__()
         )
 
+    def add_participant(self, participant_pk, participant_number=000):
+        """Add a participant to this Team Game"""
+        if participant_pk is None:
+            return False
+        try:
+            participant = Participant.objects.get(pk=participant_pk)
+        except Participant.DoesNotExist:
+            return False
+
+        player = Player(participant=participant, game=self, number=participant_number)
+        player.save()
+
+        return True
+
 
 class Match(models.Model):
     """Represents a match to be played by two teams and officiated by officials."""
-    day = models.ForeignKey(to=Day, on_delete=models.CASCADE)
+    day = models.ForeignKey(to=Day, on_delete=models.CASCADE, related_name='matches')
     time = models.TimeField(
         help_text='Date and time when this match is happening.'
     )
@@ -59,8 +74,7 @@ class Match(models.Model):
     )
 
     def __str__(self):
-        return '{} between {} vs {}'.format(
-            self.day.__str__(),
+        return '{} vs {}'.format(
             self.home_team.team.__str__(),
             self.away_team.team.__str__(),
         )
@@ -77,8 +91,16 @@ class OfficialGame(models.Model):
         max_length=255,
         choices=OFFICIAL_STATUS,
     )
-    match = models.ForeignKey(to=Match, on_delete=models.CASCADE)
-    official = models.ForeignKey(to=Official, on_delete=models.CASCADE)
+    match = models.ForeignKey(
+        to=Match,
+        on_delete=models.CASCADE,
+        related_name='officials'
+    )
+    official = models.ForeignKey(
+        to=Official,
+        on_delete=models.CASCADE,
+        related_name='games'
+    )
 
     def __str__(self):
         return '{} officiating {}'.format(
@@ -89,11 +111,21 @@ class OfficialGame(models.Model):
 
 class Player(models.Model):
     """Represents a participant's involvement on a game."""
-    participant = models.ForeignKey(to=Participant, on_delete=models.CASCADE)
-    game = models.ForeignKey(to=TeamGame, on_delete=models.CASCADE)
+    participant = models.ForeignKey(
+        to=Participant,
+        on_delete=models.CASCADE,
+        related_name='player_set'
+    )
+    game = models.ForeignKey(
+        to=TeamGame,
+        on_delete=models.CASCADE,
+        related_name='players'
+    )
 
     number = models.PositiveIntegerField(
-        help_text='The player\'s game jersey number.'
+        help_text='The player\'s game jersey number.',
+        null=True,
+        blank=True,
     )
     score = models.PositiveIntegerField(
         help_text='The amount of points the player scored.',

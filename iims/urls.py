@@ -22,4 +22,10 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('home/', TemplateView.as_view(template_name='iims/home.html')),
     path('league/', include('league.urls')),
+    path('match/', include('match.urls')),
+    path('react/', include('frontend.urls')),
+    path('api/', include('api.urls')),
+    path('officials/', include('officials.urls')),
+    path('participant/', include('participant.urls')),
+    path('team/', include('team.urls'))
 ]
