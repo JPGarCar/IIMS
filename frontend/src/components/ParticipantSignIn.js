@@ -8,6 +8,7 @@ export default class ParticipantSignIn extends Component {
         super(props);
         this.state = {
             searchText: '',
+            number: null,
             participant: null,
             match: null,
             team: null,
@@ -16,6 +17,7 @@ export default class ParticipantSignIn extends Component {
         this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
         this.handleSignIn = this.handleSignIn.bind(this);
+        this.handleNumberTextFieldChange = this.handleNumberTextFieldChange.bind(this);
     }
 
     handleSignIn(e) {
@@ -23,7 +25,8 @@ export default class ParticipantSignIn extends Component {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                'participant_pk': this.state.participant.id
+                'participant_pk': this.state.participant.id,
+                'participant_number': this.state.number,
             })
         }
 
@@ -60,24 +63,42 @@ export default class ParticipantSignIn extends Component {
         })
     }
 
+    handleNumberTextFieldChange(e) {
+        this.setState({
+            number: e.target.value
+        })
+    }
+
     render() {
         return (
           <Grid container direction={"column"}>
               <Grid item>
-                  <Grid container direction={"row"} spacing={2} alignItems={"center"}>
-                      <Grid item xs={8}>
-                          <TextField label={'Search Participant'} fullWidth margin={"normal"} onChange={this.handleTextFieldChange}>
-                          </TextField>
+                  <Grid container direction={"row"} spacing={4} alignItems={"center"}>
+                      <Grid item xs={7}>
+                          <Grid container direction={"row"} spacing={1} alignItems={"center"}>
+                              <Grid item xs={8}>
+                                  <TextField label={'Search Participant'} fullWidth margin={"normal"} onChange={this.handleTextFieldChange}>
+                                  </TextField>
+                              </Grid>
+                              <Grid item xs style={{textAlign: "center"}}>
+                                  <Button onClick={this.handleSearch}>
+                                      Search
+                                  </Button>
+                              </Grid>
+                          </Grid>
                       </Grid>
                       <Grid item xs>
-                          <Button onClick={this.handleSearch}>
-                              Search
-                          </Button>
-                      </Grid>
-                      <Grid item xs>
-                          <Button onClick={this.handleSignIn}>
-                              Sign In
-                          </Button>
+                          <Grid container direction={"row"} spacing={1} alignItems={"center"}>
+                              <Grid item xs>
+                                  <TextField label={'Number'} fullWidth margin={"normal"} onChange={this.handleNumberTextFieldChange}>
+                                  </TextField>
+                              </Grid>
+                              <Grid item xs style={{textAlign: 'center'}}>
+                                  <Button onClick={this.handleSignIn}>
+                                      Sign In
+                                  </Button>
+                              </Grid>
+                          </Grid>
                       </Grid>
                   </Grid>
               </Grid>

@@ -22,11 +22,12 @@ class TeamGameViewSet(ModelViewSet):
         team_game: TeamGame = self.get_object()
 
         participant_pk = data.get('participant_pk', None)
+        participant_number = data.get('participant_number', None)
 
         if participant_pk is None:
             return Response(data={'error': 'No participant id given!'}, status=status.HTTP_400_BAD_REQUEST)
 
-        is_complete = team_game.add_participant(participant_pk=participant_pk)
+        is_complete = team_game.add_participant(participant_pk=participant_pk, participant_number=participant_number)
 
         if is_complete:
             return Response(data={'status': 'Participant was added to the team match!'})

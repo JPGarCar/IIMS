@@ -41,7 +41,7 @@ class TeamGame(models.Model):
             self.get_match().__str__()
         )
 
-    def add_participant(self, participant_pk):
+    def add_participant(self, participant_pk, participant_number=000):
         """Add a participant to this Team Game"""
         if participant_pk is None:
             return False
@@ -50,7 +50,7 @@ class TeamGame(models.Model):
         except Participant.DoesNotExist:
             return False
 
-        player = Player(participant=participant, game=self)
+        player = Player(participant=participant, game=self, number=participant_number)
         player.save()
 
         return True
