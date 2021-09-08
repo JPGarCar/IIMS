@@ -28,4 +28,4 @@ class MatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Match
         fields = ('id', 'day', 'time', 'home_team', 'away_team', 'officials', '__str__')
-        depth = 1
+        depth = 2

@@ -56,7 +56,7 @@ class DayViewSet(ModelViewSet):
         try:
             participant = Participant.objects.get(ubc_id=participant_ubc_id)
         except Participant.DoesNotExist:
-            return Response(data={'error': 'No participant found with given ID!'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={'error': 'No participant found with given ID!'}, status=status.HTTP_404_NOT_FOUND)
 
         try:
             match = day.matches.get(away_team__team__team_roster=participant.pk)

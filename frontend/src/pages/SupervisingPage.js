@@ -50,7 +50,7 @@ export default class SupervisingPage extends Component {
                         <Grid item xs={8}>
                             <Card>
                                 <CardContent>
-                                    <ParticipantSignIn />
+                                    <ParticipantSignIn day={this.state.day} />
                                 </CardContent>
                             </Card>
                         </Grid>

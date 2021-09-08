@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Button, Grid, TextField} from "@material-ui/core";
+import ParticipantInfo from "./ParticipantInfo";
 
 
 export default class ParticipantSignIn extends Component {
@@ -8,6 +9,8 @@ export default class ParticipantSignIn extends Component {
         this.state = {
             searchText: '',
             participant: null,
+            match: null,
+            team: null,
         }
 
         this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
@@ -15,7 +18,23 @@ export default class ParticipantSignIn extends Component {
     }
 
     handleSearch(e) {
-        console.log(this.state.searchText);
+        const requestOptions = {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'},
+        };
+        fetch(
+            'http://localhost:8000/league/api/days/' + this.props.day.id + '/participant/'+ this.state.searchText + '/',
+            requestOptions)
+            .then((response) => {
+                console.log(response.statusText);
+                response.json().then((data) => {
+                    this.setState({
+                        participant: data.participant,
+                        match: data.match,
+                        team: data.team,
+                    })
+                })
+            }).catch(console.log)
     }
 
     handleTextFieldChange(e) {
@@ -46,7 +65,7 @@ export default class ParticipantSignIn extends Component {
                   </Grid>
               </Grid>
               <Grid item>
-                  {this.state.participant != null ? 'Hello there' : 'Search for a participant first!'}
+                  {this.state.participant != null ? <ParticipantInfo participant={this.state.participant} match={this.state.match} team={this.state.team} /> : 'Search for a participant first!'}
               </Grid>
           </Grid>
         );
